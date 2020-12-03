@@ -1,0 +1,98 @@
+#!/usr/local/bin/python3.9
+from requests_html import HTMLSession
+from fake_useragent import UserAgent
+from subprocess import PIPE, Popen
+from urllib.parse import urlparse
+from requests_html import HTML
+from pyquery import PyQuery
+from datetime import date
+import urllib.request
+import compileall
+import subprocess
+import argparse
+import requests
+import pathlib
+import urllib
+import runpy
+import json
+import time
+import wget
+import sys
+import re
+import os
+
+#print ('Arguments List:', str(sys.argv), '('+str(len(sys.argv))+')')
+
+def noAbsoluteUrl(url):
+	if "http" not in url:
+		naUrl = url
+	else:
+		naUrl = None
+	return naUrl
+
+def toAbsoluteUrl(url):
+	if "http" in url:
+		absUrl = url
+	else:
+		absUrl = u+url
+	return absUrl
+
+def Contains(str, where):
+	if str in where:
+		return True
+	else:
+		return False
+
+def NotContains(str, where):
+	if str not in where:
+		return True
+	else:
+		return False
+
+def HaveAttr(key, attr):
+	if key in attr:
+		return True
+	else:
+		return False
+
+def NotHaveAttr(key, attr):
+	if key not in attr:
+		return True
+	else:
+		return False
+
+def УдалитьДубликатыСоСписка(listList):
+	return list(dict.fromkeys(listList))
+
+def RemoveDuplicatesFromList(listArr):
+	return list(dict.fromkeys(listArr))
+
+def SeparateUriToArray(linkHref):
+	linkWithoutNativeAddress = linkHref.replace(u, '')
+	siteFilename = linkHref[linkHref.rfind("/")+1:]
+	siteLocalPath = u[u.rfind("//")+2:]
+	siteDomain = siteLocalPath.split("/", 1)[0]
+	sitePath = linkWithoutNativeAddress.split("/")[:-1]
+	insideLocalPath = ''
+	for siteDir in sitePath:
+		insideLocalPath += siteDir+'/'
+	#print('linkHref: '+linkHref) print('siteDomain: '+siteDomain) print('siteLocalPath: '+siteLocalPath) print('insideLocalPath: '+insideLocalPath) print('siteFilename: '+siteFilename)
+	pathsStrings = linkHref+','+siteDomain+','+siteLocalPath+','+insideLocalPath+','+siteFilename
+	pathArray = pathsStrings.split(',')
+	return pathArray
+
+def FindAttr(arr , id):
+    for x in arr:
+        if x["id"] == id:
+            return x
+
+def plural_pounds(n):
+    days = ['фунт', 'фунта', 'фунтов']
+    if n % 10 == 1 and n % 100 != 11:
+        p = 0
+    elif 2 <= n % 10 <= 4 and (n % 100 < 10 or n % 100 >= 20):
+        p = 1
+    else:
+        p = 2
+    return str(n) + ' ' + days[p]
+
